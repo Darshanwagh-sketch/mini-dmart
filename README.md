@@ -1,7 +1,5 @@
 # Mini D-Mart — Premium Express Grocery Store Application
 
-A full-stack, enterprise-grade e-commerce grocery store application built for the **Round 2 — Full Stack Developer Practical Assessment**.
-
 ![Mini D-Mart Express](https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80)
 
 ---
