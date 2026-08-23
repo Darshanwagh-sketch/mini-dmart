@@ -1,5 +1,6 @@
 import React from 'react';
 import { Plus, Check, Eye } from 'lucide-react';
+import { getSafeImageUrl, handleImageError } from '../utils/imageUtils';
 
 export default function ProductCard({ product, onAddToCart, onQuickView }) {
   const isOutOfStock = product.stockQuantity <= 0;
@@ -8,7 +9,14 @@ export default function ProductCard({ product, onAddToCart, onQuickView }) {
   return (
     <div className="product-card">
       <div className="product-img-wrapper" onClick={() => onQuickView(product)} style={{ cursor: 'pointer' }}>
-        <img src={product.imageUrl} alt={product.name} className="product-img" />
+        <img 
+          src={getSafeImageUrl(product.imageUrl)} 
+          alt={product.name} 
+          className="product-img" 
+          referrerPolicy="no-referrer"
+          onError={handleImageError}
+        />
+
         
         {/* Stock Badge */}
         {isOutOfStock ? (

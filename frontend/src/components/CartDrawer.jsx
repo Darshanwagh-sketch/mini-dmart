@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, Store, Truck, ArrowRight, CheckCircle2, Package, Home, Navigation, ShoppingBag } from 'lucide-react';
+import { getSafeImageUrl, handleImageError } from '../utils/imageUtils';
 
 export default function CartDrawer({ 
   isOpen, 
@@ -175,7 +176,14 @@ export default function CartDrawer({
               ) : (
                 cartItems.map((item) => (
                   <div key={item.id} style={{ display: 'flex', gap: 12, marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid var(--border-glass)', alignItems: 'center' }}>
-                    <img src={item.product.imageUrl} alt={item.product.name} style={{ width: 60, height: 60, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
+                    <img 
+                      src={getSafeImageUrl(item.product.imageUrl)} 
+                      alt={item.product.name} 
+                      style={{ width: 60, height: 60, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} 
+                      referrerPolicy="no-referrer"
+                      onError={handleImageError}
+                    />
+
                     <div style={{ flex: 1 }}>
                       <h4 style={{ fontSize: '0.9rem', fontWeight: 700 }}>{item.product.name}</h4>
                       <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600 }}>₹{item.product.price} / {item.product.unit}</span>

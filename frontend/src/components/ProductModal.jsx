@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Plus, Minus, ShoppingBag, ShieldCheck } from 'lucide-react';
+import { getSafeImageUrl, handleImageError } from '../utils/imageUtils';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
   const [qty, setQty] = useState(1);
@@ -20,8 +21,15 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'center' }}>
           <div style={{ height: 260, borderRadius: 'var(--radius-md)', overflow: 'hidden', background: '#0f172a' }}>
-            <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img 
+              src={getSafeImageUrl(product.imageUrl)} 
+              alt={product.name} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              referrerPolicy="no-referrer"
+              onError={handleImageError}
+            />
           </div>
+
 
           <div>
             <span className="product-category">{product.category?.name}</span>

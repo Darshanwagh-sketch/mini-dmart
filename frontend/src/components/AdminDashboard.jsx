@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DollarSign, ShoppingBag, Users, AlertTriangle, FileText, Plus, Edit, Trash2, ShieldCheck, X } from 'lucide-react';
 import { api } from '../api';
+import { getSafeImageUrl, handleImageError } from '../utils/imageUtils';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
@@ -197,7 +198,13 @@ export default function AdminDashboard() {
                   <tr key={p.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <img src={p.imageUrl} alt={p.name} style={{ width: 34, height: 34, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
+                        <img 
+                          src={getSafeImageUrl(p.imageUrl)} 
+                          alt={p.name} 
+                          style={{ width: 34, height: 34, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} 
+                          referrerPolicy="no-referrer"
+                          onError={handleImageError}
+                        />
                         <span style={{ fontWeight: 700 }}>{p.name}</span>
                       </div>
                     </td>

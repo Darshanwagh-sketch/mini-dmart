@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Clock, MapPin, RefreshCw, XCircle, CheckCircle2, Truck, Package, Store, Navigation } from 'lucide-react';
 import { api } from '../api';
 import DeliveryTrackerModal from './DeliveryTrackerModal';
+import { getSafeImageUrl, handleImageError } from '../utils/imageUtils';
 
 export default function CustomerDashboard({ user }) {
   const [orders, setOrders] = useState([]);
@@ -345,7 +346,14 @@ export default function CustomerDashboard({ user }) {
                   {order.items.map((item) => (
                     <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <img src={item.product?.imageUrl} alt={item.product?.name} style={{ width: 38, height: 38, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
+                        <img 
+                          src={getSafeImageUrl(item.product?.imageUrl)} 
+                          alt={item.product?.name} 
+                          style={{ width: 38, height: 38, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} 
+                          referrerPolicy="no-referrer"
+                          onError={handleImageError}
+                        />
+
                         <div>
                           <h5 style={{ fontSize: '0.85rem', fontWeight: 700 }}>{item.product?.name}</h5>
                           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Qty: {item.quantity} × ₹{item.unitPrice}</span>
